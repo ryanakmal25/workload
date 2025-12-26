@@ -1,0 +1,59 @@
+<?php
+
+namespace App\Filament\Exports;
+
+use App\Models\Task;
+use Filament\Actions\Exports\ExportColumn;
+use Filament\Actions\Exports\Exporter;
+use Filament\Actions\Exports\Models\Export;
+
+class TasksExporter extends Exporter
+{
+    protected static ?string $model = Task::class;
+
+    public static function getColumns(): array
+    {
+        return [
+            ExportColumn::make('id'),
+
+            ExportColumn::make('task_name')
+                ->label('Item'),
+
+            ExportColumn::make('note')
+                ->label('Input'),
+
+            ExportColumn::make('output')
+                ->label('Output'),
+
+            ExportColumn::make('staff.name')
+                ->label('PIC'),
+
+            ExportColumn::make('is_long_term')
+                ->label('Long Term'),
+
+            ExportColumn::make('tanggal')
+                ->label('Start Date'),
+
+            ExportColumn::make('tanggal_akhir')
+                ->label('End Date'),
+
+            ExportColumn::make('estimasi_jam')
+                ->label('Estimasi Jam'),
+
+            ExportColumn::make('allocation_hours')
+                ->label('Alokasi Jam'),
+
+            ExportColumn::make('priority')
+                ->label('Priority'),
+
+            ExportColumn::make('status')
+                ->label('Evaluasi Efektivitas'),
+        ];
+    }
+
+
+    public static function getCompletedNotificationBody(Export $export): string
+    {
+        return 'Export tasks selesai. File sudah siap diunduh.';
+    }
+}

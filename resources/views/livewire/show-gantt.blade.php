@@ -77,7 +77,7 @@
                 Low
             </label>
             <label class="flex items-center gap-2">
-                <input type="checkbox" wire:model="priorityFilter" value="not priority" class="rounded" checked>
+                <input type="checkbox" wire:model="priorityFilter" value="not_priority" class="rounded" checked>
                 Not Priority
             </label>
         </div>

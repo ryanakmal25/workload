@@ -57,7 +57,9 @@
             →
         </button>
 
+
         <div class="flex items-center gap-4 ml-6">
+             <span class="font-semibold text-gray-700">Display tasks with priority:</span>
             <label class="flex items-center gap-2">
                 <input type="checkbox" wire:model="priorityFilter" value="urgent" class="rounded" checked>
                 Urgent

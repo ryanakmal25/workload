@@ -59,11 +59,11 @@
             Monthly
         </button>
 
-        <!-- Next
+       <!-- Next -->
         <button wire:click="nextRange"
             class="px-3 py-2 rounded-lg bg-gray-200 text-gray-800 hover:bg-gray-300 border border-gray-300">
             →
-        </button> -->
+        </button>
 
     </div>
     <!-- Filter tanggal -->

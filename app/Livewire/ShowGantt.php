@@ -40,16 +40,17 @@ class ShowGantt extends Component implements HasForms
 
     public function reloadGantt(): void
     {
+        $start = Carbon::parse($this->start_date)->startOfDay();
+        $end   = Carbon::parse($this->end_date)->endOfDay();
+
         $tasks = Task::query()
-            ->where(function ($q) {
-                $q->whereBetween('tanggal', [
-                    Carbon::parse($this->start_date)->startOfDay(),
-                    Carbon::parse($this->end_date)->endOfDay(),
-                ])
-                    ->orWhereBetween('tanggal_akhir', [
-                        Carbon::parse($this->start_date)->startOfDay(),
-                        Carbon::parse($this->end_date)->endOfDay(),
-                    ]);
+            ->where(function ($q) use ($start, $end) {
+                $q->whereBetween('tanggal', [$start, $end])              // dimulai di range
+                    ->orWhereBetween('tanggal_akhir', [$start, $end])      // berakhir di range
+                    ->orWhere(function ($q2) use ($start, $end) {          // overlap penuh
+                        $q2->where('tanggal', '<', $start)
+                            ->where('tanggal_akhir', '>', $end);
+                    });
             })
             ->orderBy('staff_id')
             ->orderBy('tanggal')
@@ -68,6 +69,7 @@ class ShowGantt extends Component implements HasForms
             endDate: $this->end_date
         );
     }
+
 
     /** Buat daftar tanggal dalam rentang filter */
     protected function getDateRange(): array
@@ -202,7 +204,7 @@ class ShowGantt extends Component implements HasForms
         }
         return $count;
     }
-   
+
     public function previousRange(): void
     {
         if ($this->range_type === 'weekly') {

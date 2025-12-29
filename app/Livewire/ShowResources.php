@@ -41,11 +41,18 @@ class ShowResources extends Component implements HasForms
 
     public function reloadResources(): void
     {
+        $start = Carbon::parse($this->start_date)->startOfDay();
+        $end   = Carbon::parse($this->end_date)->endOfDay();
+
         $tasks = Task::query()
-            ->whereBetween('tanggal', [
-                Carbon::parse($this->start_date)->startOfDay(),
-                Carbon::parse($this->end_date)->endOfDay(),
-            ])
+            ->where(function ($q) use ($start, $end) {
+                $q->whereBetween('tanggal', [$start, $end])              // dimulai di range
+                    ->orWhereBetween('tanggal_akhir', [$start, $end])      // berakhir di range
+                    ->orWhere(function ($q2) use ($start, $end) {          // overlap penuh
+                        $q2->where('tanggal', '<', $start)
+                            ->where('tanggal_akhir', '>', $end);
+                    });
+            })
             ->orderBy('staff_id')
             ->get();
 
@@ -66,12 +73,9 @@ class ShowResources extends Component implements HasForms
 
             foreach ($staffTasks as $task) {
                 if ($task->is_long_term && $task->tanggal && $task->tanggal_akhir) {
-                    // Long term project → alokasi jam per hari, skip weekend
                     $period = Carbon::parse($task->tanggal)->daysUntil(Carbon::parse($task->tanggal_akhir));
                     foreach ($period as $day) {
-                        if ($day->isWeekend()) {
-                            continue; // weekend tetap ada di tabel, tapi tidak ditambah workload
-                        }
+                        if ($day->isWeekend()) continue;
                         $date = $day->format('Y-m-d');
                         if (isset($row['days'][$date])) {
                             $row['days'][$date] += $task->allocation_hours ?? 0;
@@ -79,11 +83,8 @@ class ShowResources extends Component implements HasForms
                         }
                     }
                 } else {
-                    // Non long term → estimasi jam di tanggal, skip weekend
                     $carbonDate = Carbon::parse($task->tanggal);
-                    if ($carbonDate->isWeekend()) {
-                        continue;
-                    }
+                    if ($carbonDate->isWeekend()) continue;
                     $date = $carbonDate->format('Y-m-d');
                     if (isset($row['days'][$date])) {
                         $row['days'][$date] += $task->estimasi_jam ?? 0;

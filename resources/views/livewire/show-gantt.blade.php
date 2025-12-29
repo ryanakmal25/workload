@@ -57,6 +57,28 @@
             →
         </button>
 
+        <div class="flex items-center gap-4 ml-6">
+            <label class="flex items-center gap-2">
+                <input type="checkbox" wire:model="priorityFilter" value="urgent" class="rounded" checked>
+                Urgent
+            </label>
+            <label class="flex items-center gap-2">
+                <input type="checkbox" wire:model="priorityFilter" value="high" class="rounded" checked>
+                High
+            </label>
+            <label class="flex items-center gap-2">
+                <input type="checkbox" wire:model="priorityFilter" value="medium" class="rounded" checked>
+                Medium
+            </label>
+            <label class="flex items-center gap-2">
+                <input type="checkbox" wire:model="priorityFilter" value="low" class="rounded" checked>
+                Low
+            </label>
+            <label class="flex items-center gap-2">
+                <input type="checkbox" wire:model="priorityFilter" value="not priority" class="rounded" checked>
+                Not Priority
+            </label>
+        </div>
     </div>
 
 
@@ -135,6 +157,25 @@
             ${t.is_overdue ? '<br/><b style="color:#ef4444;">⚠️ OVERDUE</b>' : ''}`;
         gantt.templates.scale_cell_class = d => (d.getDay() === 0 || d.getDay() === 6) ? "weekend-header" : "";
         gantt.templates.timeline_cell_class = (t, d) => (d.getDay() === 0 || d.getDay() === 6) ? "weekend-cell" : "";
+
+        gantt.attachEvent("onBeforeTaskDisplay", function(id, task) {
+            var filters = document.querySelectorAll("input[wire\\:model='priorityFilter']");
+            if (!task.priority) return true;
+
+            for (var i = 0; i < filters.length; i++) {
+                var f = filters[i];
+                if (f.checked && task.priority === f.value) {
+                    return true;
+                }
+            }
+            return false;
+        });
+
+        document.querySelectorAll("input[wire\\:model='priorityFilter']").forEach(cb => {
+            cb.addEventListener("change", () => {
+                gantt.render();
+            });
+        });
     }
 
     function renderGantt(data, startDate, endDate) {
@@ -157,7 +198,6 @@
 
             ganttPageInitialized = true;
         } else {
-            // update rentang tanggal jika filter berubah
             gantt.config.start_date = new Date(startDate);
             gantt.config.end_date = new Date(endDate);
         }

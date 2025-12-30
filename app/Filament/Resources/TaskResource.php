@@ -227,8 +227,10 @@ class TaskResource extends Resource
                 Tables\Columns\TextColumn::make('tanggal')
                     ->label('Target')
                     ->date()
+                    ->sortable()
                     ->hidden(fn($record) => $record?->is_long_term)
                     ->toggleable(isToggledHiddenByDefault: false),
+                    
 
                 Tables\Columns\TextColumn::make('tanggal_akhir')
                     ->label('End Date')

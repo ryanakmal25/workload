@@ -14,16 +14,25 @@ class TasksExporter extends Exporter
     public static function getColumns(): array
     {
         return [
-            ExportColumn::make('id'),
-
             ExportColumn::make('task_name')
                 ->label('Item'),
 
-            ExportColumn::make('note')
+            ExportColumn::make('input')
                 ->label('Input'),
 
             ExportColumn::make('output')
                 ->label('Output'),
+
+            ExportColumn::make('tanggal')
+                ->label('Target'),
+
+            ExportColumn::make('estimasi_jam')
+                ->label('Estimasi Jam'),
+
+            ExportColumn::make('id'),
+
+            ExportColumn::make('status')
+                ->label('Evaluasi Efektivitas'),
 
             ExportColumn::make('staff.name')
                 ->label('PIC'),
@@ -31,14 +40,11 @@ class TasksExporter extends Exporter
             ExportColumn::make('is_long_term')
                 ->label('Long Term'),
 
-            ExportColumn::make('tanggal')
-                ->label('Start Date'),
+            // ExportColumn::make('tanggal')
+            //     ->label('Start Date'),
 
             ExportColumn::make('tanggal_akhir')
                 ->label('End Date'),
-
-            ExportColumn::make('estimasi_jam')
-                ->label('Estimasi Jam'),
 
             ExportColumn::make('allocation_hours')
                 ->label('Alokasi Jam'),
@@ -46,8 +52,7 @@ class TasksExporter extends Exporter
             ExportColumn::make('priority')
                 ->label('Priority'),
 
-            ExportColumn::make('status')
-                ->label('Evaluasi Efektivitas'),
+
         ];
     }
 

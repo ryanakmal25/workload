@@ -6,6 +6,7 @@ use App\Models\Task;
 use Filament\Tables;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Support\Enums\MaxWidth;
 
 class RoleOverviewTable extends BaseWidget
 {
@@ -21,8 +22,10 @@ class RoleOverviewTable extends BaseWidget
             ->query(
                 Task::query()
                     ->with('staff')
-                    ->when($this->roleId, fn (Builder $q) => 
-                        $q->whereHas('staff', fn ($q2) => $q2->where('role_id', $this->roleId))
+                    ->when(
+                        $this->roleId,
+                        fn(Builder $q) =>
+                        $q->whereHas('staff', fn($q2) => $q2->where('role_id', $this->roleId))
                     )
             )
             ->columns([
@@ -43,6 +46,50 @@ class RoleOverviewTable extends BaseWidget
                         'success' => 'closed',
                         'danger' => 'overdue',
                         'cyan' => 'postponed',
+                    ]),
+
+            ])
+            ->actions([
+                Tables\Actions\ViewAction::make()
+                    ->slideOver()
+                    ->modalWidth(MaxWidth::Medium)
+                    ->form([
+                        \Filament\Forms\Components\TextInput::make('task_name')
+                            ->label('Item')
+                            ->disabled(),
+
+                        \Filament\Forms\Components\Select::make('staff_id')
+                            ->label('PIC (Staff)')
+                            ->relationship('staff', 'name')
+                            ->disabled(),
+
+                        \Filament\Forms\Components\Textarea::make('input')
+                            ->label('Input')
+                            ->disabled(),
+
+                        \Filament\Forms\Components\Textarea::make('output')
+                            ->label('Output')
+                            ->disabled(),
+
+                        \Filament\Forms\Components\DatePicker::make('tanggal')
+                            ->label('Target Date')
+                            ->disabled(),
+
+                        \Filament\Forms\Components\TextInput::make('estimasi_jam')
+                            ->label('Estimasi Jam')
+                            ->disabled(),
+
+                        \Filament\Forms\Components\TextInput::make('status')
+                            ->label('Status')
+                            ->disabled(),
+
+                        \Filament\Forms\Components\TextInput::make('priority')
+                            ->label('Priority')
+                            ->disabled(),
+
+                        \Filament\Forms\Components\TextInput::make('progress')
+                            ->label('Progress (%)')
+                            ->disabled(),
                     ]),
             ])
             ->paginated(10); // pagination 10

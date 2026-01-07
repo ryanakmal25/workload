@@ -282,7 +282,7 @@ class TaskResource extends Resource
                     }),
 
                 Tables\Columns\TextColumn::make('progress')
-                    ->label('Progress')
+                    ->label('Progress %')
                     ->formatStateUsing(fn($state) => $state . '%')
                     ->toggleable(isToggledHiddenByDefault: false),
 

@@ -46,7 +46,7 @@ class RoleOverviewTable extends BaseWidget
                         'cyan' => 'postponed',
                     ]),
                 Tables\Columns\TextColumn::make('progress')
-                    ->label('Progress (%)')
+                    ->label('%')
                     ->formatStateUsing(fn ($state) => $state !== null ? $state . '%' : '-'),
             ])
             ->actions([
@@ -88,11 +88,10 @@ class RoleOverviewTable extends BaseWidget
                             ->disabled(),
 
                         \Filament\Forms\Components\TextInput::make('progress')
-                            ->label('Progress (%)')
+                            ->label('%')
                             ->disabled(),
                     ]),
             ])
             ->paginated(10); // pagination 10
     }
 }
-        

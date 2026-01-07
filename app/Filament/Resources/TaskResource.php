@@ -184,7 +184,7 @@ class TaskResource extends Resource
                             ])
                             ->default('not_priority'),
                         Forms\Components\TextInput::make('progress')
-                            ->label('Progress')
+                            ->label('%')
                             ->numeric()
                             ->minValue(0)
                             ->maxValue(100)
@@ -282,7 +282,7 @@ class TaskResource extends Resource
                     }),
 
                 Tables\Columns\TextColumn::make('progress')
-                    ->label('Progress %')
+                    ->label('%')
                     ->formatStateUsing(fn($state) => $state . '%')
                     ->toggleable(isToggledHiddenByDefault: false),
 

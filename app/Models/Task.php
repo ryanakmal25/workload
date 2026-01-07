@@ -29,6 +29,7 @@ class Task extends Model
         'priority',
         'output',
         'total_overdue',
+        'progress',
     ];
     protected static function booted()
     {

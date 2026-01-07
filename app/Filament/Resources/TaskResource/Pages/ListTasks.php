@@ -23,7 +23,7 @@ class ListTasks extends ListRecords
             Actions\CreateAction::make()
                 ->createAnother(false)
                 ->slideOver()
-                ->modalWidth(MaxWidth::Small)
+                ->modalWidth(MaxWidth::Medium)
                 ->icon('heroicon-o-plus')
                 ->closeModalByClickingAway(false),
             Actions\ExportAction::make()
@@ -32,7 +32,7 @@ class ListTasks extends ListRecords
                 ->icon('heroicon-o-arrow-up-tray')
                 ->color('primary')
                 ->slideOver()
-                ->modalWidth(MaxWidth::Small)
+                ->modalWidth(MaxWidth::Medium)
                 ->formats([
                     ExportFormat::Xlsx,
                 ]),
@@ -42,7 +42,7 @@ class ListTasks extends ListRecords
                 ->label('Import Tasks')
                 ->color('primary')
                 ->slideOver()
-                ->modalWidth(MaxWidth::Small)
+                ->modalWidth(MaxWidth::Medium)
                 ->closeModalByClickingAway(false)
                 ->closeModalByEscaping(false)
                 ->sampleExcel(

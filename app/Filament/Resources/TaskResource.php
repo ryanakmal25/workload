@@ -155,7 +155,7 @@ class TaskResource extends Resource
                             ->label('Alokasi Jam per Hari')
                             ->numeric()
                             ->minValue(1)
-                            ->maxValue(7)
+                            ->maxValue(8)
                             ->visible(fn(Get $get) => $get('is_long_term'))
                             ->required(fn(Get $get) => $get('is_long_term')),
 
@@ -183,6 +183,15 @@ class TaskResource extends Resource
                                 'not_priority' => 'Not Priority',
                             ])
                             ->default('not_priority'),
+                        Forms\Components\TextInput::make('progress')
+                            ->label('Progress')
+                            ->numeric()
+                            ->minValue(0)
+                            ->maxValue(100)
+                            ->suffix('%')
+                            ->required(),
+
+
                     ])
                     ->columns(1)
             ]);
@@ -203,12 +212,12 @@ class TaskResource extends Resource
 
                 Tables\Columns\TextInputColumn::make('input')
                     ->label('Input')
-                    ->tooltip(fn (Model $record): string => "{$record->input}")
+                    ->tooltip(fn(Model $record): string => "{$record->input}")
                     ->toggleable(isToggledHiddenByDefault: false),
 
                 Tables\Columns\TextInputColumn::make('output')
                     ->label('Output')
-                    ->tooltip(fn (Model $record): string => "{$record->output}")
+                    ->tooltip(fn(Model $record): string => "{$record->output}")
                     ->toggleable(isToggledHiddenByDefault: false),
 
                 Tables\Columns\TextColumn::make('staff.name')
@@ -230,7 +239,7 @@ class TaskResource extends Resource
                     ->sortable()
                     ->hidden(fn($record) => $record?->is_long_term)
                     ->toggleable(isToggledHiddenByDefault: false),
-                    
+
 
                 Tables\Columns\TextColumn::make('tanggal_akhir')
                     ->label('End Date')
@@ -271,6 +280,12 @@ class TaskResource extends Resource
                         'not_priority' => 'Not Priority',
                         default => $state,
                     }),
+
+                Tables\Columns\TextColumn::make('progress')
+                    ->label('Progress')
+                    ->formatStateUsing(fn($state) => $state . '%')
+                    ->toggleable(isToggledHiddenByDefault: false),
+
 
                 Tables\Columns\TextColumn::make('status')
                     ->label('Evaluasi Efektivitas')

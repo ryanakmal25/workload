@@ -3,10 +3,13 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Task;
+use App\Filament\Resources\TaskResource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
 use Filament\Widgets\Concerns\InteractsWithPageFilters;
+use Filament\Support\Enums\MaxWidth;
+use Filament\Resources\Components\Tab;
 
 class PriorityTaskTable extends TableWidget
 {
@@ -20,7 +23,7 @@ class PriorityTaskTable extends TableWidget
         return $table
             ->heading('Priority Task')
             ->striped()
-            ->paginated([5])
+            ->paginated([10]) // tampilkan 10 per halaman
             ->query(function () {
                 $start = $this->filters['startDate'] ?? null;
                 $end = $this->filters['endDate'] ?? null;
@@ -38,18 +41,87 @@ class PriorityTaskTable extends TableWidget
             ->columns([
                 Tables\Columns\TextColumn::make('task_name')
                     ->label('Nama Task'),
-                   
+
                 Tables\Columns\TextColumn::make('staff.name')
-                    ->label('Staff'),
-                    
-                Tables\Columns\TextColumn::make('priority')
+                    ->label('PIC'),
+
+                Tables\Columns\BadgeColumn::make('priority')
                     ->label('Priority')
-                    ->badge()
                     ->colors([
                         'danger' => 'urgent',
                         'warning' => 'high',
                         'success' => 'medium',
                     ]),
+            ])
+            ->actions([
+                Tables\Actions\ViewAction::make()
+                    ->slideOver()
+                    ->modalWidth(MaxWidth::Medium)
+                    ->form([
+                        \Filament\Forms\Components\TextInput::make('task_name')
+                            ->label('Item')
+                            ->disabled(),
+
+                        \Filament\Forms\Components\Select::make('staff_id')
+                            ->label('PIC (Staff)')
+                            ->relationship('staff', 'name')
+                            ->disabled(),
+
+                        \Filament\Forms\Components\Textarea::make('input')
+                            ->label('Input')
+                            ->disabled(),
+
+                        \Filament\Forms\Components\Textarea::make('output')
+                            ->label('Output')
+                            ->disabled(),
+
+                        \Filament\Forms\Components\DatePicker::make('tanggal')
+                            ->label('Target Date')
+                            ->disabled(),
+
+                        \Filament\Forms\Components\TextInput::make('estimasi_jam')
+                            ->label('Estimasi Jam')
+                            ->disabled(),
+
+                        \Filament\Forms\Components\TextInput::make('status')
+                            ->label('Status')
+                            ->disabled(),
+
+                        \Filament\Forms\Components\TextInput::make('priority')
+                            ->label('Priority')
+                            ->disabled(),
+                    ]),
             ]);
+    }
+
+
+    public function getTabs(): array
+    {
+        $tabs = [
+            'all' => Tab::make('All')
+                ->badge($this->getModel()::count()),
+        ];
+
+        $statuses = $this->getModel()::query()
+            ->select('status')
+            ->distinct()
+            ->orderBy('status')
+            ->pluck('status');
+
+        foreach ($statuses as $status) {
+
+            $slug = str($status)->slug()->toString();
+            $label = $this->mapStatusLabel($status);
+
+            $tabs[$slug] = Tab::make($label)
+                ->badge(
+                    $this->getModel()::where('status', $status)->count()
+                )
+                ->modifyQueryUsing(
+                    fn($query) => $query->where('status', $status)
+                );
+        }
+
+        return $tabs;
     }
 }

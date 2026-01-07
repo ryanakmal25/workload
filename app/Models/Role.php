@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use app\Models\Staff;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use App\Models\Staff;
+use App\Models\Task;
 
-class role extends Model
+class Role extends Model
 {
     use HasFactory;
 
@@ -16,10 +18,13 @@ class role extends Model
         return $this->hasMany(Staff::class);
     }
 
-    protected $fillable =
-    [
-        'name',
-        'description'
+    public function tasks(): HasManyThrough
+    {
+        return $this->hasManyThrough(Task::class, Staff::class);
+    }
 
+    protected $fillable = [
+        'name',
+        'description',
     ];
 }

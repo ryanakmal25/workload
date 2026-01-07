@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Filament\Widgets\PriorityTaskTable;
+use App\Filament\Widgets\RoleOverview;
 use App\Filament\Widgets\StatsOverview;
 use App\Filament\Widgets\TaskChart;
 use App\Filament\Widgets\StaffTaskChart;
@@ -28,6 +29,7 @@ class Dashboard extends BaseDashboard
             PriorityTaskTable::class,
             StaffTaskChart::class,
             TaskChart::class,
+            RoleOverview::class,
 
         ];
     }

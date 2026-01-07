@@ -23,7 +23,7 @@ class PriorityTaskTable extends TableWidget
         return $table
             ->heading('Priority Task')
             ->striped()
-            ->paginated([10]) // tampilkan 10 per halaman
+            ->paginated([5]) // tampilkan 10 per halaman
             ->query(function () {
                 $start = $this->filters['startDate'] ?? null;
                 $end = $this->filters['endDate'] ?? null;

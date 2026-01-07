@@ -22,10 +22,8 @@ class RoleOverviewTable extends BaseWidget
             ->query(
                 Task::query()
                     ->with('staff')
-                    ->when(
-                        $this->roleId,
-                        fn(Builder $q) =>
-                        $q->whereHas('staff', fn($q2) => $q2->where('role_id', $this->roleId))
+                    ->when($this->roleId, fn (Builder $q) => 
+                        $q->whereHas('staff', fn ($q2) => $q2->where('role_id', $this->roleId))
                     )
             )
             ->columns([
@@ -47,7 +45,9 @@ class RoleOverviewTable extends BaseWidget
                         'danger' => 'overdue',
                         'cyan' => 'postponed',
                     ]),
-
+                Tables\Columns\TextColumn::make('progress')
+                    ->label('Progress (%)')
+                    ->formatStateUsing(fn ($state) => $state !== null ? $state . '%' : '-'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
@@ -95,3 +95,4 @@ class RoleOverviewTable extends BaseWidget
             ->paginated(10); // pagination 10
     }
 }
+        

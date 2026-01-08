@@ -188,6 +188,7 @@ class TaskResource extends Resource
                             ->numeric()
                             ->minValue(0)
                             ->maxValue(100)
+                            ->default(0)
                             ->suffix('%')
                             ->required(),
 
@@ -281,9 +282,14 @@ class TaskResource extends Resource
                         default => $state,
                     }),
 
-                Tables\Columns\TextColumn::make('progress')
+                Tables\Columns\SelectColumn::make('progress')
                     ->label('%')
-                    ->formatStateUsing(fn($state) => $state . '%')
+                    ->options(
+                        collect(range(0, 100, 5))
+                            ->mapWithKeys(fn($i) => [$i => $i . '%'])
+                            ->toArray()
+                    )
+                    ->extraAttributes(['class' => 'w-16 text-center']) // w-16 = ±64px
                     ->toggleable(isToggledHiddenByDefault: false),
 
 

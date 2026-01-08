@@ -11,14 +11,11 @@ use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use App\Filament\Exports\TasksExporter;
-use App\Filament\Imports\TasksImporter;
 use Filament\Support\Enums\MaxWidth;
-use Filament\Tables\Actions\ExportAction as TablesActionsExportAction;
-use Filament\Tables\Actions\ImportAction as TablesActionsImportAction;
 use Filament\Notifications\Notification;
 use Malzariey\FilamentDaterangepickerFilter\Filters\DateRangeFilter;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\HtmlString;
 
 class TaskResource extends Resource
 {
@@ -213,6 +210,7 @@ class TaskResource extends Resource
 
                 Tables\Columns\TextInputColumn::make('input')
                     ->label('Input')
+                    ->grow(true)
                     ->tooltip(fn(Model $record): string => "{$record->input}")
                     ->toggleable(isToggledHiddenByDefault: false),
 
@@ -284,6 +282,8 @@ class TaskResource extends Resource
 
                 Tables\Columns\SelectColumn::make('progress')
                     ->label('%')
+                    ->grow(false)
+                    ->width('1rem')
                     ->options(
                         collect(range(0, 100, 5))
                             ->mapWithKeys(fn($i) => [$i => $i . '%'])
@@ -294,7 +294,7 @@ class TaskResource extends Resource
 
 
                 Tables\Columns\TextColumn::make('status')
-                    ->label('Evaluasi Efektivitas')
+                    ->label(new HtmlString('Evaluasi <br/> Efektivitas'))
                     ->badge()
                     ->formatStateUsing(fn($state) => match ($state) {
                         'opened' => 'Opened',
@@ -315,7 +315,7 @@ class TaskResource extends Resource
 
 
                 Tables\Columns\TextColumn::make('total_overdue')
-                    ->label('Total Overdue (hari)')
+                    ->label(new HtmlString('Total <br/> Overdue'))
                     ->badge()
                     ->color(fn($state) => $state > 0 ? 'danger' : 'zinc')
                     ->toggleable(isToggledHiddenByDefault: false),

@@ -170,16 +170,40 @@ class TaskResource extends Resource
 
 
                         Forms\Components\Select::make('priority')
+                            ->label('Priority')
                             ->required()
                             ->native(false)
                             ->options([
-                                'urgent' => 'Urgent',
-                                'high' => 'High',
-                                'medium' => 'Medium',
-                                'low' => 'Low',
-                                'not_priority' => 'Not Priority',
+                                'not_priority' => '
+        <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+            <span>⚪ No Priority</span>
+            <span style="opacity:0.5; margin-left:160px;">0</span>
+        </div>',
+                                'urgent' => '
+        <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+            <span>❗ Urgent</span>
+            <span style="opacity:0.5; margin-left:190px;">1</span>
+        </div>',
+                                'high' => '
+        <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+            <span>🟠 High</span>
+            <span style="opacity:0.5; margin-left:200px;">2</span>
+        </div>',
+                                'medium' => '
+        <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+            <span>🟡 Medium</span>
+            <span style="opacity:0.5; margin-left:178px;">3</span>
+        </div>',
+                                'low' => '
+        <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+            <span>🟢 Low</span>
+            <span style="opacity:0.5; margin-left:205px;">4</span>
+        </div>',
                             ])
-                            ->default('not_priority'),
+
+                            ->default('not_priority')
+                            ->allowHtml(),
+
                         Forms\Components\TextInput::make('progress')
                             ->label('%')
                             ->numeric()
@@ -328,6 +352,17 @@ class TaskResource extends Resource
             ])
 
             ->filters([
+
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        'opened' => 'Opened',
+                        'progress' => 'Progress',
+                        'closed' => 'Closed',
+                        'overdue' => 'Overdue',
+                        'postponed' => 'Postponed',
+                    ])
+                    ->multiple(),
+
                 Tables\Filters\SelectFilter::make('staff.name')
                     ->relationship('staff', 'name')
                     ->label('PIC')
@@ -366,16 +401,16 @@ class TaskResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->slideOver()
-                    ->modalWidth(MaxWidth::Small),
+                    ->modalWidth(MaxWidth::Medium),
 
                 Tables\Actions\ViewAction::make()
                     ->slideOver()
-                    ->modalWidth(MaxWidth::Small),
+                    ->modalWidth(MaxWidth::Medium),
 
                 Tables\Actions\ReplicateAction::make()
                     ->form(fn(Form $form) => static::form($form)->columns(2))
                     ->slideOver()
-                    ->modalWidth(MaxWidth::Small),
+                    ->modalWidth(MaxWidth::Medium),
 
                 Tables\Actions\Action::make('closed')
                     ->label('Closed')

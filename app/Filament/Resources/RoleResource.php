@@ -66,10 +66,10 @@ class RoleResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->slideOver()
-                    ->modalWidth(MaxWidth::Small),
+                    ->modalWidth(MaxWidth::Medium),
                 Tables\Actions\ViewAction::make()
                     ->slideOver()
-                    ->modalWidth(MaxWidth::Small),
+                    ->modalWidth(MaxWidth::Medium),
                 Tables\Actions\ReplicateAction::make()->form(fn(Form $form) => static::form($form)->columns(2)),
 
 

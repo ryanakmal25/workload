@@ -18,7 +18,7 @@ class ListStaff extends ListRecords
                 ->createAnother(false)
                 ->slideOver()
                 ->icon('heroicon-o-plus')
-                ->modalWidth(MaxWidth::Small),
+                ->modalWidth(MaxWidth::Medium),
         ];
     }
 }

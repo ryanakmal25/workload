@@ -210,13 +210,15 @@ class TaskResource extends Resource
 
                 Tables\Columns\TextInputColumn::make('input')
                     ->label('Input')
-                    ->grow(true)
+                    // ->grow(true)
+                    ->width('300px')
                     ->tooltip(fn(Model $record): string => "{$record->input}")
                     ->toggleable(isToggledHiddenByDefault: false),
 
                 Tables\Columns\TextInputColumn::make('output')
                     ->label('Output')
-                    ->grow(true)
+                    // ->grow(true)
+                    ->width('300px')
                     ->tooltip(fn(Model $record): string => "{$record->output}")
                     ->toggleable(isToggledHiddenByDefault: false),
 

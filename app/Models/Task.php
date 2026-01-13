@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-// use app\Models\Staff;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Carbon\Carbon;
 
 class Task extends Model
 {
@@ -31,16 +31,25 @@ class Task extends Model
         'total_overdue',
         'progress',
     ];
+
     protected static function booted()
     {
         static::saving(function ($task) {
             $today = \Carbon\Carbon::today();
 
-            if (in_array($task->status, ['closed', 'postponed'])) {
+            // Kalau status closed → progress otomatis 100
+            if ($task->status === 'closed') {
+                $task->progress = 100;
+                return;
+            }
+
+            // Kalau status postponed → overdue = 0
+            if ($task->status === 'postponed') {
                 $task->total_overdue = 0;
                 return;
             }
 
+            // Hitung overdue untuk long term / non long term
             if (!$task->is_long_term && $task->tanggal) {
                 $target = \Carbon\Carbon::parse($task->tanggal);
                 $task->total_overdue = $today->greaterThan($target)

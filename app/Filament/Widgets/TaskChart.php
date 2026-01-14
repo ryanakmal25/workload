@@ -34,16 +34,22 @@ class TaskChart extends ChartWidget
                 Carbon::parse($end)->endOfDay(),
             ]);
 
+        $opened    = (clone $query)->where('status', 'opened')->count();
+        $progress  = (clone $query)->where('status', 'progress')->count();
+        $closed    = (clone $query)->where('status', 'closed')->count();
+        $overdue   = (clone $query)->where('status', 'overdue')->count();
+        $postponed = (clone $query)->where('status', 'postponed')->count();
+
         return [
             'datasets' => [
                 [
                     'label' => 'Tasks',
                     'data' => [
-                        (clone $query)->where('status', 'opened')->count(),
-                        (clone $query)->where('status', 'progress')->count(),
-                        (clone $query)->where('status', 'closed')->count(),
-                        (clone $query)->where('status', 'overdue')->count(),
-                        (clone $query)->where('status', 'postponed')->count(),
+                        $opened,
+                        $progress,
+                        $closed,
+                        $overdue,
+                        $postponed,
                     ],
                     'backgroundColor' => [
                         '#60a5fa', // Opened
@@ -55,14 +61,15 @@ class TaskChart extends ChartWidget
                 ],
             ],
             'labels' => [
-                'Opened',
-                'Progress',
-                'Closed',
-                'Overdue',
-                'Postponed',
+                "Opened ({$opened})",
+                "Progress ({$progress})",
+                "Closed ({$closed})",
+                "Overdue ({$overdue})",
+                "Postponed ({$postponed})",
             ],
         ];
     }
+
 
     protected function getType(): string
     {

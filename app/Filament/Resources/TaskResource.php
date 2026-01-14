@@ -86,10 +86,11 @@ class TaskResource extends Resource
                             ]),
 
                         Forms\Components\Textarea::make('input')
-                            ->label('Input')
+                            ->label('Project')
                             ->maxLength(255),
 
                         Forms\Components\Textarea::make('output')
+                            ->label('Task')
                             ->maxLength(255),
 
                         // Jika bukan long term → tampilkan tanggal & estimasi jam
@@ -233,14 +234,14 @@ class TaskResource extends Resource
                     ->wrap(),
 
                 Tables\Columns\TextInputColumn::make('input')
-                    ->label('Input')
+                    ->label('Project')
                     // ->grow(true)
                     ->width('300px')
                     ->tooltip(fn(Model $record): string => "{$record->input}")
                     ->toggleable(isToggledHiddenByDefault: false),
 
                 Tables\Columns\TextInputColumn::make('output')
-                    ->label('Output')
+                    ->label('Task')
                     // ->grow(true)
                     ->width('300px')
                     ->tooltip(fn(Model $record): string => "{$record->output}")

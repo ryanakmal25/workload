@@ -39,7 +39,7 @@ class PriorityTaskTable extends TableWidget
                 return $query;
             })
             ->columns([
-                Tables\Columns\TextColumn::make('task_name')
+                Tables\Columns\TextColumn::make('input')
                     ->label('Nama Task'),
 
                 Tables\Columns\TextColumn::make('staff.name')
@@ -68,15 +68,19 @@ class PriorityTaskTable extends TableWidget
                             ->disabled(),
 
                         \Filament\Forms\Components\Textarea::make('input')
-                            ->label('Input')
+                            ->label('Project')
                             ->disabled(),
 
                         \Filament\Forms\Components\Textarea::make('output')
-                            ->label('Output')
+                            ->label('Task')
                             ->disabled(),
 
                         \Filament\Forms\Components\DatePicker::make('tanggal')
                             ->label('Target Date')
+                            ->disabled(),
+
+                        \Filament\Forms\Components\DatePicker::make('tanggal_akhir')
+                            ->label('End Date')
                             ->disabled(),
 
                         \Filament\Forms\Components\TextInput::make('estimasi_jam')

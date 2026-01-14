@@ -13,8 +13,8 @@ class TaskChart extends ChartWidget
 
     protected static ?string $heading = 'Status Task';
     protected static ?int $sort = 4;
-    protected int|string|array $columnSpan = 1;
-    protected static ?string $maxHeight = '200px';
+    protected int|string|array $columnSpan = 8;
+    protected static ?string $minHeight = '500px';
 
     protected function getData(): array
     {
@@ -79,7 +79,14 @@ class TaskChart extends ChartWidget
     protected function getOptions(): array
     {
         return [
-            'responsive' => true,
+            'responsive' => false,
+            'plugins' => [
+                'tooltip' => [
+                    'callbacks' => [
+                        'label' => fn($tooltipItem) => (int) $tooltipItem->raw, // tampilkan integer di tooltip
+                    ],
+                ],
+            ],
             'scales' => [
                 'x' => ['display' => false],
                 'y' => ['display' => false],

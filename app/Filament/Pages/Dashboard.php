@@ -26,11 +26,6 @@ class Dashboard extends BaseDashboard
         return 'Workload & Project Management';
     }
 
-    public function getSubheading(): string
-    {
-        return 'Dashboard';
-    }
-
 
     public function getWidgets(): array
     {

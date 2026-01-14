@@ -13,8 +13,8 @@ class StaffTaskChart extends ChartWidget
 
     protected static ?string $heading = 'Task per Staff';
     protected static ?int $sort = 3;
-    protected int|string|array $columnSpan = 2;
-    protected static ?string $maxHeight = '200px';
+    protected int|string|array $columnSpan = 4;
+    protected static ?string $maxHeight = '400px';
 
     protected function getData(): array
     {
@@ -39,17 +39,40 @@ class StaffTaskChart extends ChartWidget
             'datasets' => [
                 [
                     'label' => 'Jumlah Task',
-                    'data' => $staffs->pluck('tasks_count')->toArray(),
-                    'backgroundColor' => array_fill(0, $staffs->count(), '#60a5fa'),
+                    'data' => $staffs->pluck('tasks_count')->map(fn($count) => (int) $count)->toArray(),
+                    'backgroundColor' => $staffs->pluck('color')->toArray(),
+                    'borderColor' => $staffs->pluck('color')->toArray(), // samakan dengan background
+                    'borderWidth' => 0, // hilangkan border biru
                 ],
             ],
             'labels' => $staffs->pluck('name')->toArray(),
         ];
     }
 
-
     protected function getType(): string
     {
         return 'bar';
+    }
+
+    protected function getOptions(): array
+    {
+        return [
+            'indexAxis' => 'y',
+            'plugins' => [
+                'legend' => ['display' => false,],
+                'tooltip' => [
+                    'callbacks' => [
+                        'label' => fn($tooltipItem) => (int) $tooltipItem->raw, // tampilkan integer di tooltip
+                    ],
+                ],
+            ],
+            'scales' => [
+                'x' => [
+                    'ticks' => [
+                        'precision' => 0, // pastikan angka bulat di axis
+                    ],
+                ],
+            ],
+        ];
     }
 }

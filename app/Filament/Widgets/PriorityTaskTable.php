@@ -16,7 +16,7 @@ class PriorityTaskTable extends TableWidget
     use InteractsWithPageFilters;
 
     protected static ?int $sort = 2;
-    protected int|string|array $columnSpan = 6;
+    protected int|string|array $columnSpan = 12;
 
     public function table(Table $table): Table
     {

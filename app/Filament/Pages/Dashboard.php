@@ -21,6 +21,16 @@ class Dashboard extends BaseDashboard
         $this->filters = $this->getFiltersFormDefaultValues();
     }
 
+    public function getHeading(): string
+    {
+        return 'Workload & Project Management';
+    }
+
+    public function getSubheading(): string
+    {
+        return 'Dashboard';
+    }
+
 
     public function getWidgets(): array
     {
@@ -30,7 +40,6 @@ class Dashboard extends BaseDashboard
             StaffTaskChart::class,
             TaskChart::class,
             RoleOverview::class,
-
         ];
     }
 

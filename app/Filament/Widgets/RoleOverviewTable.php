@@ -22,8 +22,10 @@ class RoleOverviewTable extends BaseWidget
             ->query(
                 Task::query()
                     ->with('staff')
-                    ->when($this->roleId, fn (Builder $q) => 
-                        $q->whereHas('staff', fn ($q2) => $q2->where('role_id', $this->roleId))
+                    ->when(
+                        $this->roleId,
+                        fn(Builder $q) =>
+                        $q->whereHas('staff', fn($q2) => $q2->where('role_id', $this->roleId))
                     )
             )
             ->columns([
@@ -36,7 +38,16 @@ class RoleOverviewTable extends BaseWidget
                         'info' => 'medium',
                         'success' => 'low',
                         'gray' => 'not_priority',
-                    ]),
+                    ])
+                    ->formatStateUsing(fn($state) => match ($state) {
+                        'urgent' => 'Urgent (1)',
+                        'high' => 'High (2)',
+                        'medium' => 'Medium (3)',
+                        'low' => 'Low (4)',
+                        'not_priority' => 'Not Priority (0)',
+                        default => $state,
+                    }),
+
                 Tables\Columns\BadgeColumn::make('status')
                     ->colors([
                         'primary' => 'opened',
@@ -47,7 +58,7 @@ class RoleOverviewTable extends BaseWidget
                     ]),
                 Tables\Columns\TextColumn::make('progress')
                     ->label('%')
-                    ->formatStateUsing(fn ($state) => $state !== null ? $state . '%' : '-'),
+                    ->formatStateUsing(fn($state) => $state !== null ? $state . '%' : '-'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()

@@ -51,7 +51,13 @@ class PriorityTaskTable extends TableWidget
                         'danger' => 'urgent',
                         'warning' => 'high',
                         'success' => 'medium',
-                    ]),
+                    ])
+                     ->formatStateUsing(fn($state) => match ($state) {
+                        'urgent' => 'Urgent (1)',
+                        'high' => 'High (2)',
+                        'medium' => 'Medium (3)',
+                        default => $state,
+                    })
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()

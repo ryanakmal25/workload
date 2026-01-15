@@ -59,12 +59,7 @@ class StaffTaskChart extends ChartWidget
         return [
             'indexAxis' => 'y',
             'plugins' => [
-                'legend' => ['display' => false,],
-                'tooltip' => [
-                    'callbacks' => [
-                        'label' => fn($tooltipItem) => (int) $tooltipItem->raw, // tampilkan integer di tooltip
-                    ],
-                ],
+                'legend' => ['display' => true,],
             ],
             'scales' => [
                 'x' => [

@@ -300,11 +300,11 @@ class TaskResource extends Resource
                         'teal' => 'not_priority',
                     ])
                     ->formatStateUsing(fn($state) => match ($state) {
-                        'urgent' => 'Urgent',
-                        'high' => 'High',
-                        'medium' => 'Medium',
-                        'low' => 'Low',
-                        'not_priority' => 'Not Priority',
+                        'urgent' => 'Urgent (1)',
+                        'high' => 'High (2)',
+                        'medium' => 'Medium (3)',
+                        'low' => 'Low (4)',
+                        'not_priority' => 'Not Priority (0)',
                         default => $state,
                     }),
 

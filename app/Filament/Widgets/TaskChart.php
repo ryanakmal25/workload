@@ -79,17 +79,12 @@ class TaskChart extends ChartWidget
     protected function getOptions(): array
     {
         return [
-            'responsive' => false,
+            'responsive' => true,
             'plugins' => [
-                'tooltip' => [
-                    'callbacks' => [
-                        'label' => fn($tooltipItem) => (int) $tooltipItem->raw, // tampilkan integer di tooltip
-                    ],
-                ],
             ],
             'scales' => [
-                'x' => ['display' => false],
-                'y' => ['display' => false],
+                'x' => ['display' => true],
+                'y' => ['display' => true],
             ],
         ];
     }

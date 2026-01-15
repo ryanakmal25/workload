@@ -75,11 +75,11 @@ class RoleOverviewTable extends BaseWidget
                             ->disabled(),
 
                         \Filament\Forms\Components\Textarea::make('input')
-                            ->label('Input')
+                            ->label('Project')
                             ->disabled(),
 
                         \Filament\Forms\Components\Textarea::make('output')
-                            ->label('Output')
+                            ->label('Task')
                             ->disabled(),
 
                         \Filament\Forms\Components\DatePicker::make('tanggal')

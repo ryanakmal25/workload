@@ -1,66 +1,111 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📊 Project Manajemen Beban Kerja & Task Monitoring
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Project ini adalah aplikasi manajemen task dan beban kerja yang dirancang untuk membantu tim atau individu memahami **apa yang dikerjakan, siapa yang mengerjakan, dan seberapa besar beban kerjanya**, secara visual, terukur, dan mudah dipahami.
 
-## About Laravel
+Fokus utama project ini adalah **transparansi beban kerja** melalui visualisasi data seperti **Gantt Chart, Resource Chart, dan Dashboard Analitik** yang interaktif.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🎯 Tujuan Project
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Dalam dunia kerja modern, masalah klasik sering muncul:
+- Task menumpuk tanpa gambaran waktu yang jelas
+- Beban kerja tidak merata antar resource
+- Sulit memantau prioritas task yang mendesak
 
-## Learning Laravel
+Project ini hadir untuk menjawab masalah tersebut dengan pendekatan berbasis **data, visualisasi, dan efisiensi**.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## ✨ Fitur Utama
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 🗓️ Gantt Chart – Visualisasi Beban Kerja
 
-## Laravel Sponsors
+Gantt Chart menjadi highlight utama dalam project ini.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Fungsi utama:
+- Menampilkan timeline task berdasarkan tanggal mulai dan selesai
+- Memberikan gambaran beban kerja secara kronologis
+- Memudahkan identifikasi overlap task dan potensi bottleneck
 
-### Premium Partners
+Dengan Gantt Chart, pengguna tidak hanya melihat *apa* yang dikerjakan, tetapi juga *kapan* dan *berapa lama* task tersebut berlangsung.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+---
 
-## Contributing
+### 👥 Resource Chart – Perhitungan Jam Kerja
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Fitur Resource Chart digunakan untuk memantau beban kerja setiap resource (user/karyawan/tim).
 
-## Code of Conduct
+Yang ditampilkan:
+- Total jam kerja per resource
+- Akumulasi jam berdasarkan task yang ditugaskan
+- Visualisasi distribusi beban kerja
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Fitur ini membantu:
+- Mencegah overwork
+- Membuat pembagian task lebih adil
+- Mendukung pengambilan keputusan berbasis data
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 📊 Dashboard Analitik
 
-## License
+Dashboard berfungsi sebagai pusat ringkasan data yang cepat dan informatif.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### 🔎 Table Chart – Task Prioritas
+- Menampilkan task dengan prioritas **Medium hingga Urgent**
+- Membantu fokus pada task yang paling berdampak
+- Cocok untuk monitoring harian dan weekly review
+
+#### 📌 Task Bar Chart
+- Menampilkan jumlah task berdasarkan status atau kategori
+- Memberikan gambaran progres pekerjaan secara visual
+
+#### 🍩 Donut Chart
+- Visualisasi proporsi status task 
+- Membantu memahami komposisi pekerjaan dalam satu tampilan ringkas
+
+Dashboard dirancang untuk menjawab pertanyaan penting dalam hitungan detik.
+
+---
+
+### 📝 Manajemen Task (Input Data)
+
+Pengguna dapat melakukan:
+- Menambahkan task baru
+- Mengatur priority, durasi, resource, dan deskripsi task
+- Memperbarui dan mengelola data task secara terstruktur
+
+Fitur ini menjadi fondasi utama dari seluruh visualisasi dan analisis.
+
+---
+
+### 🔄 Import & Export Data
+
+Untuk fleksibilitas dan integrasi dengan workflow lain, project ini mendukung:
+- **Import data** task dari file (misalnya CSV atau Excel)
+- **Export data** untuk kebutuhan laporan atau analisis lanjutan
+
+Fitur ini memungkinkan data tetap portabel dan tidak terkunci dalam satu sistem.
+
+---
+
+## 🧠 Nilai Tambah Project
+
+- Visualisasi data yang mudah dipahami
+- Fokus pada beban kerja dan prioritas nyata
+- Mendukung pengambilan keputusan berbasis data
+- Cocok untuk tim kecil hingga menengah
+
+Project ini tidak hanya mencatat task, tetapi membantu memahami **cerita di balik data pekerjaan**.
+
+---
+
+## 🚀 Penutup
+
+Dengan kombinasi Gantt Chart, Resource Monitoring, dan Dashboard Analitik, project ini dirancang sebagai alat bantu strategis untuk meningkatkan produktivitas, transparansi, dan keseimbangan beban kerja.
+
+Project ini dapat dikembangkan lebih lanjut untuk integrasi real-time, notifikasi, dan analisis prediktif di masa depan.
+
+Selamat mengeksplorasi, karena data yang divisualisasikan dengan baik selalu bercerita lebih jujur daripada daftar panjang angka.
+

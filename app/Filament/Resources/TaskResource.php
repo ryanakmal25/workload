@@ -253,7 +253,7 @@ class TaskResource extends Resource
 
                 // Indikator long term
                 Tables\Columns\TextColumn::make('is_long_term')
-                    ->label('Long Term')
+                    ->label(new HtmlString('Long <br/> Term'))
                     ->Badge()
                     ->color(fn($state) => $state ? 'success' : 'danger')
                     ->formatStateUsing(fn($state) => $state ? 'Yes' : 'No')
@@ -269,7 +269,7 @@ class TaskResource extends Resource
 
 
                 Tables\Columns\TextColumn::make('tanggal_akhir')
-                    ->label('End Date')
+                    ->label(new HtmlString('Tanggal <br/> Akhir'))
                     ->placeholder('0')
                     ->date()
                     ->toggleable(isToggledHiddenByDefault: true)
@@ -282,7 +282,7 @@ class TaskResource extends Resource
                     ->hidden(fn($record) => $record?->is_long_term),
 
                 Tables\Columns\TextColumn::make('allocation_hours')
-                    ->label('Alokasi jam')
+                    ->label(new HtmlString('Alokasi <br/> Jam'))
                     ->formatStateUsing(fn($state) => $state ?? 0) // kalau null → 0
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->hidden(fn($record) => $record?->is_long_term),
@@ -291,7 +291,7 @@ class TaskResource extends Resource
                 Tables\Columns\TextColumn::make('priority')
                     ->label('Priority')
                     ->Badge()
-                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->toggleable(isToggledHiddenByDefault: false)
                     ->colors([
                         'danger' => 'urgent',
                         'warning' => 'high',
